@@ -1,0 +1,2 @@
+class Artise < ApplicationRecord
+end
