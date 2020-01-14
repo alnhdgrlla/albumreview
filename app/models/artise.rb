@@ -1,2 +1,0 @@
-class Artise < ApplicationRecord
-end

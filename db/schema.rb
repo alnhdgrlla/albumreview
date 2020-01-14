@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_13_090220) do
+ActiveRecord::Schema.define(version: 2020_01_14_080258) do
 
   create_table "albums", force: :cascade do |t|
     t.string "title"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_01_13_090220) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "artist_id"
+    t.string "genre_name"
     t.index ["artist_id"], name: "index_albums_on_artist_id"
     t.index ["user_id"], name: "index_albums_on_user_id"
   end
@@ -26,6 +27,15 @@ ActiveRecord::Schema.define(version: 2020_01_13_090220) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "genre_name"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.text "genre_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "artist_id"
+    t.index ["artist_id"], name: "index_genres_on_artist_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -59,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_01_13_090220) do
 
   add_foreign_key "albums", "artists"
   add_foreign_key "albums", "users"
+  add_foreign_key "genres", "artists"
   add_foreign_key "reviews", "albums"
   add_foreign_key "reviews", "users"
   add_foreign_key "songs", "albums"
