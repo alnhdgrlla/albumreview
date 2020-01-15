@@ -3,17 +3,17 @@ class AlbumController < ApplicationController
 
   def index
     @genre = Genre.find(params[:genre_id])
-    @albums = album.all
+    @albums = Album.all
   end
 
   def new
     @genre = Genre.find(params[:genre_id])
-    @album = album.new
+    @album = Album.new
   end
 
   def create
     @genre = Genre.find(params[:genre_id])
-    @album = album.new(album_params)
+    @album = Album.new(album_params)
     @album.genre = @genre
     @album.save
     redirect_to genre_path(@genre)
@@ -40,6 +40,6 @@ class AlbumController < ApplicationController
   end
 
   def album_params
-    params.require(:album).permit(:name, :genre)
+    params.require(:album).permit(:name, :genre_name)
   end
 end
