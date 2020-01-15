@@ -6,18 +6,72 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "deleteing all users"
+User.destroy_all
+
+puts "deleteing all genres"
+Genre.destroy_all
+
+puts "deleting all artists"
+Artist.destroy_all
+
+puts "deleting all albums"
+Album.destroy_all
+
+puts "deleting all song"
+Song.destroy_all
+
+puts "creating user"
+5.times do
+  User.create!(
+    username: Faker::Name.name,
+    bio: Faker::TvShows::Simpsons.quote
+    )
+end
+
+
 puts "createing genres"
 
-Genre.create!(
-  genre_name: "Rap"
-)
+5.times do
+  Genre.create!(genre_name: Faker::Music.genre)
+end
 
-Genre.create!(
-  genre_name: "Rock"
-)
+puts "creating artists"
 
-Genre.create!(
-  genre_name: "Electronic"
-)
+Genre.all.each do |g|
+  6.times do
+    Artist.create!(
+      name: Faker::Music.band,
+      genre_id: g.id,
+      user_id: User.all.sample.id
+      )
+  end
+end
+
+puts "creating albums"
+
+Artist.all.each do |a|
+  5.times do
+    Album.create!(
+      title: Faker::Music.album,
+      user_id: User.all.sample.id,
+      artist_id: a.id,
+      genre_id: a.genre_id
+      )
+  end
+end
+
+puts "creating songs"
+
+Album.all.each do |a|
+  10.times do
+    Song.create!(
+      title: Faker::Lorem.words(number: rand(3)),
+      artist_id: a.artist_id,
+      album_id: a.id,
+      user_id: a.user_id
+      )
+  end
+end
 
 puts "finished!"

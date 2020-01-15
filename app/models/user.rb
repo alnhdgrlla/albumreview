@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :artists
-  has_many :albums
-  has_many :songs
-  has_many :reviews
+  has_many :artists, dependent: :destroy
+  has_many :albums, dependent: :destroy
+  has_many :songs, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 end

@@ -1,7 +1,7 @@
 class Artist < ApplicationRecord
-  has_many :albums
-  has_many :songs, through: :album
+  has_many :albums, dependent: :destroy
+  has_many :songs, through: :albums, dependent: :destroy
   belongs_to :genre
   belongs_to :user
-  validates :name, presence: ture, uniqueness: true
+  validates :name, presence: true
 end
