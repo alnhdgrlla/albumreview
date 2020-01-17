@@ -18,8 +18,11 @@ Artist.destroy_all
 puts "deleting all albums"
 Album.destroy_all
 
-puts "deleting all song"
+puts "deleting all songs"
 Song.destroy_all
+
+puts "deleting all reviews"
+Review.destroy_all
 
 puts "creating user"
 5.times do
@@ -71,6 +74,18 @@ Album.all.each do |a|
       album_id: a.id,
       user_id: a.user_id
       )
+  end
+end
+
+puts "creating reviews"
+
+Album.all.each do |a|
+  10.times do
+    Review.create!(
+      content: Faker::Quote.famous_last_words,
+      user_id: User.all.sample.id,
+      album_id: a.id
+    )
   end
 end
 

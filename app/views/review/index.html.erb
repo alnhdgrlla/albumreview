@@ -1,0 +1,9 @@
+<h1>All of the Reviews</h1>
+
+<% @album.reviews.each do |r| %>
+  <ul>
+    <li> <%= r.content %></li>
+  </ul>
+<%end %>
+
+<%= link_to 'Home', root_path %>
