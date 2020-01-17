@@ -2,7 +2,8 @@ class ArtistController < ApplicationController
     before_action :set_artist, only: [ :show, :edit, :update, :destroy]
 
   def index
-    @artists = Artist.all
+    @genre = Genre.find(params[:id])
+    @artists = Artist.all.where(genre_id: @genre.id)
   end
 
   def new

@@ -1,0 +1,7 @@
+<h1>All Songs Of This Album</h1>
+
+<% @album.songs.each do |a| %>
+  <h3><%= a.title %></h3>
+<% end %>
+
+<%= link_to 'Home', root_path %>
