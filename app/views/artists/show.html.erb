@@ -2,7 +2,7 @@
 
 <% @artist.albums.each do |a| %>
   <h3><%= a.title %></h3>
-  <h4> <%= link_to "<Reviews>", album_review_index_path(a) %></h4>
+  <h4> <%= link_to "<Reviews>", album_reviews_path(a) %></h4>
   <h4> <%= link_to "<Songs>", album_path(a) %></h4>
 <% end %>
 

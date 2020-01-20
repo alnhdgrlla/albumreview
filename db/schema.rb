@@ -10,16 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_082001) do
+ActiveRecord::Schema.define(version: 2020_01_20_153746) do
 
   create_table "albums", force: :cascade do |t|
     t.string "title"
     t.integer "user_id", null: false
+    t.integer "genre_id", null: false
+    t.integer "artist_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "artist_id"
-    t.string "genre_name"
-    t.integer "genre_id"
     t.index ["artist_id"], name: "index_albums_on_artist_id"
     t.index ["genre_id"], name: "index_albums_on_genre_id"
     t.index ["user_id"], name: "index_albums_on_user_id"
@@ -27,11 +26,10 @@ ActiveRecord::Schema.define(version: 2020_01_14_082001) do
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
+    t.integer "user_id", null: false
+    t.integer "genre_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "genre_name"
-    t.integer "genre_id"
-    t.integer "user_id"
     t.index ["genre_id"], name: "index_artists_on_genre_id"
     t.index ["user_id"], name: "index_artists_on_user_id"
   end
@@ -55,20 +53,25 @@ ActiveRecord::Schema.define(version: 2020_01_14_082001) do
   create_table "songs", force: :cascade do |t|
     t.string "title"
     t.integer "album_id", null: false
-    t.integer "user_id", null: false
+    t.integer "artist_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "artist_id"
     t.index ["album_id"], name: "index_songs_on_album_id"
     t.index ["artist_id"], name: "index_songs_on_artist_id"
-    t.index ["user_id"], name: "index_songs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.text "bio"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
+    t.text "bio"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "albums", "artists"
@@ -80,5 +83,4 @@ ActiveRecord::Schema.define(version: 2020_01_14_082001) do
   add_foreign_key "reviews", "users"
   add_foreign_key "songs", "albums"
   add_foreign_key "songs", "artists"
-  add_foreign_key "songs", "users"
 end

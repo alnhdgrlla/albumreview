@@ -1,5 +1,5 @@
 class ArtistsController < ApplicationController
-    before_action :set_artist, only: [ :show, :edit, :update, :destroy]
+    before_action :set_artist, only: [:show, :edit, :update, :destroy]
 
   def index
     @genre = Genre.find(params[:id])
@@ -7,12 +7,20 @@ class ArtistsController < ApplicationController
   end
 
   def new
+    @genres = Genre.all
     @artist = Artist.new
   end
 
   def create
     @artist = Artist.new(artist_params)
-    @artist.save
+    @artist.user = current_user
+
+     binding.pry
+    if @artist.save
+        redirect_to root_path
+    else
+      binding.pry
+    end
   end
 
   def show
@@ -36,6 +44,6 @@ class ArtistsController < ApplicationController
   end
 
   def artist_params
-    params.require(:artist).permit(:name, :genre_name)
+    params.require(:artist).permit(:name, :genre_id)
   end
 end

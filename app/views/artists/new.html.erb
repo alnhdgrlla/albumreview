@@ -2,5 +2,8 @@
 
 <%= simple_form_for @artist do |f| %>
   <%= f.input :name %>
+    <% @genres.each do |g| %>
+    <% end %>
+    <%= f.association :genre %>
   <%= f.button :submit %>
 <% end %>

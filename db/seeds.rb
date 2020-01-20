@@ -28,7 +28,9 @@ puts "creating user"
 5.times do
   User.create!(
     username: Faker::Name.name,
-    bio: Faker::TvShows::Simpsons.quote
+    bio: Faker::TvShows::Simpsons.quote,
+    email: Faker::Internet.email,
+    password: Faker::Lorem.characters(number: 6)
     )
 end
 
@@ -72,7 +74,6 @@ Album.all.each do |a|
       title: Faker::Lorem.words(number: rand(3)),
       artist_id: a.artist_id,
       album_id: a.id,
-      user_id: a.user_id
       )
   end
 end
