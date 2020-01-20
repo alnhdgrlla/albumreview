@@ -4,6 +4,6 @@
   <%= f.input :name %>
     <% @genres.each do |g| %>
     <% end %>
-    <%= f.association :genre %>
+    <%= f.association :genre, label_method: :genre_name, value_method: :id %>
   <%= f.button :submit %>
 <% end %>
