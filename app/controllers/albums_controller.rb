@@ -7,16 +7,28 @@ class AlbumsController < ApplicationController
   end
 
   def new
-    @genre = Genre.find(params[:genre_id])
+    # binding.pry
+    @artist = Artist.find(session[:artist_id])
+    @genre_id = @artist.genre_id
+    @genre = Genre.find(@genre_id)
     @album = Album.new
   end
 
   def create
-    @genre = Genre.find(params[:genre_id])
     @album = Album.new(album_params)
-    @album.genre = @genre
-    @album.save
-    redirect_to genre_path(@genre)
+    @album.user = current_user
+    @artist = Artist.find(session[:artist_id])
+    @album.artist_id = @artist.id
+    @album.genre_id = @artist.genre_id
+    id = @artist.id
+    # @artist_id = session[:artist_id]
+    # @genre_id = session[:genre_id]
+    # @id = @album.artist_id
+    if @album.save
+        redirect_to artist_path(id)
+    else
+      binding.pry
+    end
   end
 
   def show
@@ -40,6 +52,6 @@ class AlbumsController < ApplicationController
   end
 
   def album_params
-    params.require(:album).permit(:name, :genre_name)
+    params.require(:album).permit(:title, :genre_id)
   end
 end

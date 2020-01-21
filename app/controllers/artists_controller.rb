@@ -15,7 +15,6 @@ class ArtistsController < ApplicationController
     @artist = Artist.new(artist_params)
     @artist.user = current_user
     @id = @artist.genre_id
-    binding.pry
     if @artist.save
         redirect_to genre_path(@id)
     else
@@ -24,6 +23,8 @@ class ArtistsController < ApplicationController
   end
 
   def show
+    session[:artist_id] = @artist.id
+    session[:genre_id] = @artist.genre_id
   end
 
   def edit
