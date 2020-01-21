@@ -14,10 +14,10 @@ class ArtistsController < ApplicationController
   def create
     @artist = Artist.new(artist_params)
     @artist.user = current_user
-
-     binding.pry
+    @id = @artist.genre_id
+    binding.pry
     if @artist.save
-        redirect_to root_path
+        redirect_to genre_path(@id)
     else
       binding.pry
     end
