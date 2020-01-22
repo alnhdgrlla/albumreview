@@ -1,0 +1,5 @@
+<h1>Post Review</h1>
+  <%= simple_form_for [@album, @review] do |r| %>
+    <%= r.input :content %>
+    <%= r.button :submit %>
+  <% end %>

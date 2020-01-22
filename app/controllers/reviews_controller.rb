@@ -15,8 +15,9 @@ class ReviewsController < ApplicationController
     @album = Album.find(params[:album_id])
     @review = Review.new(album_params)
     @review.album = @album
+    @review.user = current_user
     @review.save
-    redirect_to genre_path(@album)
+    redirect_to album_reviews_path(@album.id)
   end
 
   def show
@@ -39,7 +40,7 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
   end
 
-  def song_params
+  def album_params
     params.require(:review).permit(:content)
   end
 end
