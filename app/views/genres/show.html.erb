@@ -1,9 +1,9 @@
 <h1>All Artist Of This Genre</h1>
 
 <% @genre.artists.each do |a| %>
-<h3><%= link_to a.name, artist_path(a) %></h3>
+<h3><%= link_to a.name, genre_artist_path(a) %></h3>
 <% end %>
 
-<%= link_to 'Add an artist', new_artist_path %>
+<%= link_to 'Add an artist', new_genre_artist_path(@genre_id) %>
 <br>
 <%= link_to 'Home', root_path %>

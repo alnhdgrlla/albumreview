@@ -15,6 +15,7 @@ class GenresController < ApplicationController
 
   def show
     @genre = Genre.find(params[:id])
+    @genre_id = @genre.id
   end
 
   private

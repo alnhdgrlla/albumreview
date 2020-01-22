@@ -1,22 +1,20 @@
 class SongsController < ApplicationController
   before_action :set_album, only: [ :show, :edit, :update, :destroy]
 
-  def index
-    @album = Album.find(params[:album_id])
-    @song = Song.all
-  end
-
   def new
-    @album = Album.find(params[:album_id])
+    # binding.pry
+    @album = Album.find(session[:album_id])
     @song = Song.new
   end
 
   def create
-    @album = Album.find(params[:album_id])
-    @song = Song.new(album_params)
-    @song.album = @album
+    @album = Album.find(session[:album_id])
+    @artist = Artist.find(@album.artist_id)
+    @song = Song.new(song_params)
+    @song.album_id = @album.id
+    @song.artist_id = @artist.id
     @song.save
-    redirect_to genre_path(@album)
+    redirect_to album_path(@album)
   end
 
   def show

@@ -16,6 +16,7 @@ class AlbumsController < ApplicationController
 
   def create
     @album = Album.new(album_params)
+    session[:album_id] = @album.id
     @album.user = current_user
     @artist = Artist.find(session[:artist_id])
     @album.artist_id = @artist.id
@@ -32,6 +33,7 @@ class AlbumsController < ApplicationController
   end
 
   def show
+    @album_id = @album.id
   end
 
   def edit

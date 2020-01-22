@@ -23,8 +23,10 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    session[:artist_id] = @artist.id
-    session[:genre_id] = @artist.genre_id
+    # binding.pry
+    @album_id = params[:album_id]
+    @artist = Artist.find(params[:id])
+    @genre_id = @artist.genre_id
   end
 
   def edit
