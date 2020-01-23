@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-    before_action :set_review, only: [ :show, :edit, :update, :destroy]
+    before_action :set_album, only: [:new, :create, :show, :edit, :update, :destroy]
 
   def index
     @album = Album.find(params[:album_id])
@@ -7,17 +7,18 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @album = Album.find(params[:album_id])
     @review = Review.new
   end
 
   def create
-    @album = Album.find(params[:album_id])
-    @review = Review.new(album_params)
+    @review = Review.new(review_params)
     @review.album = @album
     @review.user = current_user
-    @review.save
-    redirect_to album_reviews_path(@album.id)
+    if @review.save
+       redirect_to album_reviews_path(params[:album_id])
+     else
+      binding.pry
+    end
   end
 
   def show
@@ -37,10 +38,10 @@ class ReviewsController < ApplicationController
   private
 
   def set_album
-    @review = Review.find(params[:id])
+    @album = Album.find(params[:album_id])
   end
 
-  def album_params
+  def review_params
     params.require(:review).permit(:content)
   end
 end

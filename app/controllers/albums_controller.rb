@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-    before_action :set_artist, only: [:index, :new, :show, :edit, :update, :destroy]
+    before_action :set_artist, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
   def index
     @albums = Album.where(artist_id: params[:artist_id] )
@@ -12,17 +12,17 @@ class AlbumsController < ApplicationController
   end
 
   def create
+    # binding.pry
+    @genre_id = @artist.genre_id
     @album = Album.new(album_params)
-    session[:album_id] = @album.id
     @album.user = current_user
     @album.artist_id = @artist.id
     @album.genre_id = @artist.genre_id
-    id = @artist.id
     # @artist_id = session[:artist_id]
     # @genre_id = session[:genre_id]
     # @id = @album.artist_id
     if @album.save
-        redirect_to artist_path(id)
+        redirect_to artist_albums_path(@artist)
     else
       binding.pry
     end

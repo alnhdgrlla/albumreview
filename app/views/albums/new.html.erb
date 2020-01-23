@@ -1,8 +1,7 @@
 <h1>Post Album</h1>
 
-<%= simple_form_for @album do |a| %>
+<%= simple_form_for [@artist, @album] do |a| %>
   <%= a.input :title %>
   <%= a.input :genre_id, :as => :hidden, :input_html => {:genre_id => :@genre_id} %>
-  <%= a.input :artist_id, :as => :hidden, :input_html => {:artist_id => :@artist_id} %>
   <%= a.button :submit %>
 <% end %>
