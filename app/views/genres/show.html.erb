@@ -1,4 +1,4 @@
-<h1>All Artist Of This Genre </h1>
+<h1>All Artist Of <%= @genre.genre_name %> </h1>
 
 <% @genre.artists.each do |a| %>
 <h3><%= link_to a.name, artist_albums_path(a.id) %></h3>

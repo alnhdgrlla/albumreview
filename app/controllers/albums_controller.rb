@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-    before_action :set_album, only: [:new, :show, :edit, :update, :destroy]
+    before_action :set_artist, only: [:index, :new, :show, :edit, :update, :destroy]
 
   def index
     @albums = Album.where(artist_id: params[:artist_id] )
