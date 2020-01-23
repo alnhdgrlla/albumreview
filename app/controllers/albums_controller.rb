@@ -1,16 +1,13 @@
 class AlbumsController < ApplicationController
-    before_action :set_album, only: [ :show, :edit, :update, :destroy]
+    before_action :set_album, only: [:new, :show, :edit, :update, :destroy]
 
   def index
-    @genre = Genre.find(params[:genre_id])
-    @albums = Album.all
+    @albums = Album.where(artist_id: params[:artist_id] )
+    # binding.pry
   end
 
   def new
     # binding.pry
-    @artist = Artist.find(session[:artist_id])
-    @genre_id = @artist.genre_id
-    @genre = Genre.find(@genre_id)
     @album = Album.new
   end
 
@@ -18,7 +15,6 @@ class AlbumsController < ApplicationController
     @album = Album.new(album_params)
     session[:album_id] = @album.id
     @album.user = current_user
-    @artist = Artist.find(session[:artist_id])
     @album.artist_id = @artist.id
     @album.genre_id = @artist.genre_id
     id = @artist.id
@@ -49,8 +45,8 @@ class AlbumsController < ApplicationController
 
   private
 
-  def set_album
-    @album = Album.find(params[:id])
+  def set_artist
+    @artist = Artist.find(params[:artist_id])
   end
 
   def album_params

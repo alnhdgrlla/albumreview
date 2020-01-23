@@ -6,8 +6,12 @@ Rails.application.routes.draw do
 
   resources :genres do
     resources :artists
+  end
+
+  resources :artists do
     resources :albums
   end
+
   resources :albums do
     resources :songs, only: [:index, :new, :create, :show, :destroy]
     resources :reviews, only: [:index, :new, :create, :show, :destroy]

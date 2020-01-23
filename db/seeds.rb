@@ -47,11 +47,12 @@ Genre.all.each do |g|
   6.times do
     Artist.create!(
       name: Faker::Music.band,
-      genre_id: g.id,
+      genre: g,
       user_id: User.all.sample.id
       )
   end
 end
+
 
 puts "creating albums"
 
@@ -71,7 +72,7 @@ puts "creating songs"
 Album.all.each do |a|
   10.times do
     Song.create!(
-      title: Faker::Lorem.words(number: rand(3)),
+      title: Faker::Lorem.words(number: rand(1..3)),
       artist_id: a.artist_id,
       album_id: a.id,
       )
@@ -91,3 +92,5 @@ Album.all.each do |a|
 end
 
 puts "finished!"
+
+

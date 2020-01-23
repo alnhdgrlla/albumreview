@@ -3,6 +3,11 @@ class GenresController < ApplicationController
     @genre = Genre.all
   end
 
+  def show
+    @genre = Genre.find(params[:id])
+    @genre_id = @genre.id
+  end
+
   def new
     @genre = Genre.new
   end
@@ -13,10 +18,6 @@ class GenresController < ApplicationController
     redirect_to genre_path(@genre)
   end
 
-  def show
-    @genre = Genre.find(params[:id])
-    @genre_id = @genre.id
-  end
 
   private
 

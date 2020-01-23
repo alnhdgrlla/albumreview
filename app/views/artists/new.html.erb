@@ -1,9 +1,6 @@
 <h1>Please add artist info</h1>
 
-<%= simple_form_for @artist do |f| %>
+<%= simple_form_for [@genre, @artist]  do |f| %>
   <%= f.input :name %>
-    <% @genres.each do |g| %>
-    <% end %>
-    <%= f.association :genre, label_method: :genre_name, value_method: :id %>
   <%= f.button :submit %>
 <% end %>

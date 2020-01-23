@@ -1,25 +1,8 @@
 class ArtistsController < ApplicationController
-    before_action :set_artist, only: [:show, :edit, :update, :destroy]
+    before_action :set_genre, only: [:index, :new, :edit, :update, :destroy]
 
   def index
-    @genre = Genre.find(params[:id])
-    @artists = Artist.all.where(genre_id: @genre.id)
-  end
-
-  def new
-    @genres = Genre.all
-    @artist = Artist.new
-  end
-
-  def create
-    @artist = Artist.new(artist_params)
-    @artist.user = current_user
-    @id = @artist.genre_id
-    if @artist.save
-        redirect_to genre_path(@id)
-    else
-      binding.pry
-    end
+    @artists = Artist.all.where(genre_id: params[:genre_id] )
   end
 
   def show
@@ -27,6 +10,24 @@ class ArtistsController < ApplicationController
     @album_id = params[:album_id]
     @artist = Artist.find(params[:id])
     @genre_id = @artist.genre_id
+    @genre = @artist.genre
+  end
+
+  def new
+    @genre = Genre.find(params[:genre_id])
+    @artist = Artist.new
+  end
+
+  def create
+    @artist = Artist.new(artist_params)
+    @artist.user = current_user
+    @artist.genre_id = params[:genre_id]
+    @id = params[:genre_id]
+    if @artist.save
+        redirect_to genre_path(@id)
+    else
+      binding.pry
+    end
   end
 
   def edit
@@ -42,8 +43,8 @@ class ArtistsController < ApplicationController
 
   private
 
-  def set_artist
-    @artist = Artist.find(params[:id])
+  def set_genre
+    @genre = Genre.find(params[:genre_id])
   end
 
   def artist_params

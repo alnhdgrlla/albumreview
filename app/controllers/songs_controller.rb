@@ -1,14 +1,16 @@
 class SongsController < ApplicationController
-  before_action :set_album, only: [ :show, :edit, :update, :destroy]
+  before_action :set_album, only: [:index,:new, :create, :show, :edit, :update, :destroy]
+
+  def index
+    @songs = Song.all.where(album_id: @album_id)
+  end
 
   def new
     # binding.pry
-    @album = Album.find(session[:album_id])
     @song = Song.new
   end
 
   def create
-    @album = Album.find(session[:album_id])
     @artist = Artist.find(@album.artist_id)
     @song = Song.new(song_params)
     @song.album_id = @album.id
@@ -34,7 +36,7 @@ class SongsController < ApplicationController
   private
 
   def set_album
-    @song = Song.find(params[:id])
+    @album = Album.find(params[:album_id])
   end
 
   def song_params
