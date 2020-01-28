@@ -1,0 +1,7 @@
+<h1>Edit this album</h1>
+
+<%= simple_form_for [@artist, @album] do |a| %>
+  <%= a.input :title %>
+  <%= a.association :genre, label_method: :genre_name, value_method: :id %>
+  <%= a.button :submit %>
+<% end %>

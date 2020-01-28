@@ -1,8 +1,9 @@
 class AlbumsController < ApplicationController
-    before_action :set_artist, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+    before_action :set_artist, only: [:index, :new, :edit, :create, :update, :destroy]
 
   def index
-    @albums = Album.where(artist_id: params[:artist_id] )
+    @albums = Album.where(artist_id: params[:artist_id])
+    @album = @albums.first
     # binding.pry
   end
 
@@ -29,14 +30,26 @@ class AlbumsController < ApplicationController
   end
 
   def show
-    @album_id = @album.id
+    @album_id = params[:id]
+    @album = Album.find(params[:id])
   end
 
   def edit
+    @album = Album.find(params[:id])
+    # binding.pry
   end
 
   def update
-    @album.update(album_params)
+    if current_user.id != Album.find(params[:id]).user_id
+      puts "You are not allowed for this action"
+    else
+      @album = Album.find(params[:id])
+      if @album.update(album_params)
+        redirect_to artist_albums_path(@artist)
+      else
+        puts "Update didnt finish succesflly"
+      end
+    end
   end
 
   def destroy

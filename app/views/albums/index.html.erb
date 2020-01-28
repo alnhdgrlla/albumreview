@@ -1,8 +1,10 @@
 <h1>All Albums Of <%= @artist.name %> </h1>
 
-
 <% @albums.each do |a| %>
-  <h3><%= a.title %></h3>
+  <h3>--<%= a.title %>--</h3>
+  <% if current_user.id == a.user_id %>
+    <h4><%= link_to "Edit this album", edit_artist_album_path(@artist, a) %></h4>
+  <% end %>
   <h4> <%= link_to "<Reviews>", album_reviews_path(a) %></h4>
   <h4> <%= link_to "<Songs>", album_songs_path(a) %></h4>
 
