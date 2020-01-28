@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-    before_action :set_album, only: [:new, :create, :show, :edit, :update, :destroy]
+    before_action :set_album, only: [:new, :create, :show, :edit, :update]
 
   def index
     @album = Album.find(params[:album_id])
@@ -32,7 +32,14 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @review.destroy
+    @review = Review.find(params[:id])
+    if current_user.id == @review.user_id
+      @review = Review.find(params[:id])
+      @review.destroy
+      redirect_to album_reviews_path(params[:album_id])
+    else
+      return "you are not allowed for this action"
+    end
   end
 
   private
