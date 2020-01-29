@@ -6,5 +6,9 @@
   </ul>
 <%end %>
 
-<%= link_to 'Post Songs', new_album_song_path(@album.id) %> <br>
+<% if @album.songs.empty? && @album.user_id == current_user.id %>
+  <%= link_to 'Post Songs', new_album_song_path(@album.id) %> <br>
+<% end %>
+
+
 <%= link_to 'Home', root_path %>

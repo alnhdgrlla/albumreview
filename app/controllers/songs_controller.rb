@@ -11,13 +11,47 @@ class SongsController < ApplicationController
   end
 
   def create
-    @artist = Artist.find(@album.artist_id)
-    @song = Song.new(song_params)
-    @song.album_id = @album.id
-    @song.artist_id = @artist.id
-    @song.save
-    redirect_to album_path(@album)
+    if @album.user_id == current_user.id
+      @artist = Artist.find(@album.artist_id)
+      @song = Song.new(song_params)
+      @song.album_id = @album.id
+      @song.artist_id = @artist.id
+      @song.save
+      binding.pry
+      redirect_to album_path(@album)
+    else
+      puts "you are not allowed for this action"
+    end
   end
+
+    # if @album.user_id == current_user.id
+    #   @artist = Artist.find(@album.artist_id)
+
+    #   songs_array = [
+    #                   song_params, song_params, song_params, song_params, song_params,
+    #                   song_params, song_params, song_params, song_params, song_params
+    #                 ]
+    #   songs_array.each do |s|
+    #     if s.empty?
+    #       s.delete
+    #     end
+    #   end
+    #   @songs = Song.create(songs_array)
+
+    #   @songs.each do |s|
+    #     s.album_id = @album.id
+    #   end
+
+    #   @songs.each do |s|
+    #     s.artist_id = @artist.id
+    #   end
+
+    #   binding.pry
+    #   @songs.save
+    #   redirect_to album_path(@album)
+    # else
+    #   return "you are not allowed for this action"
+    # end
 
   def show
   end
