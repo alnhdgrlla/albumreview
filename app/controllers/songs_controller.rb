@@ -64,7 +64,13 @@ class SongsController < ApplicationController
   end
 
   def destroy
-    @song.destroy
+    if current_user.id == @album.user_id
+      @song = Song.find(params[:id])
+      @song.destroy
+      redirect_to album_songs_path(@album)
+    else
+      puts 'you are not allowed'
+    end
   end
 
   private

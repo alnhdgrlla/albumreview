@@ -2,13 +2,17 @@
 
 <% @album.songs.each do |s| %>
   <ul>
-    <li> <%= s.title %></li>
+    <li>
+      <%= s.title %>
+      <% if current_user.id == @album.user_id %>
+        <%= button_to 'delete', [@album, s] , method: :delete, data: {confirm: "are you sure?"} %>
+      <% end %>
+    </li>
   </ul>
 <%end %>
 
 <% if @album.songs.empty? && @album.user_id == current_user.id %>
   <%= link_to 'Post Songs', new_album_song_path(@album.id) %> <br>
 <% end %>
-
 
 <%= link_to 'Home', root_path %>
