@@ -1,7 +1,8 @@
 <h1>All Artist Of <%= @genre.genre_name %> </h1>
 
 <% @genre.artists.each do |a| %>
-<h3><%= link_to a.name, artist_albums_path(a.id) %></h3>
+<h3><%= link_to a.name, artist_albums_path(a.id) %> / total_album:
+  <%= Album.where(artist_id: a).count  %></h3>
 <% end %>
 
 <%= link_to 'Add an artist', new_genre_artist_path(@genre_id) %>
