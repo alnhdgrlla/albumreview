@@ -1,13 +1,16 @@
 <h1>All of the Reviews</h1>
 
-<% @album.reviews.each do |r| %>
+<% @reviews.each do |r| %>
   <ul>
-    <li> <%= r.content %></li>
-    <% if current_user.id == r.user_id %>
-      <%= button_to "delete", [@album, r] , method: :delete, data: {confirm: "are you sure?"} %>
-    <% end %>
+    <li> <%= r.content %>
+      <% if current_user.id == r.user_id %>
+        <%= button_to "delete", [@album, r] , method: :delete, data: {confirm: "are you sure?"} %>
+      <% end %>
+    </li>
   </ul>
 <%end %>
+
+<%= will_paginate @reviews %>
 
 <%= link_to 'Post Review', new_album_review_path(@album.id) %> <br>
 <%= link_to 'Home', root_path %>

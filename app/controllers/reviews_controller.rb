@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
 
   def index
     @album = Album.find(params[:album_id])
-    @review = Review.all
+    @reviews = Review.where(album_id: @album).paginate(page: params[:page], per_page: 3)
   end
 
   def new
