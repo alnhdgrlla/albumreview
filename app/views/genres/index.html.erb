@@ -9,7 +9,9 @@
 <% end %>
 
 <% @genres.each do |genre| %>
-<h3><%=link_to genre.genre_name, genre_path(genre)%>/total_artist: <%= Artist.where(genre_id: genre).count %></h3>
+  <h3><%=link_to genre.genre_name, genre_path(genre)%>/total_artist:
+      <%= genre.artists.count %>
+  </h3>
 <% end %>
 
 <%= will_paginate @reviews %>
