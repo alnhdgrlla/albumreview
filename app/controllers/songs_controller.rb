@@ -1,8 +1,9 @@
 class SongsController < ApplicationController
-  before_action :set_album, only: [:index,:new, :create, :show, :edit, :update, :destroy]
+  before_action :set_album, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
   def index
-    @songs = Song.all.where(album_id: @album_id)
+    @songs = Song.all.where(album_id: params[:album_id])
+    @song = Song.new
   end
 
   def new
@@ -18,7 +19,7 @@ class SongsController < ApplicationController
       @song.artist_id = @artist.id
       @song.save
       binding.pry
-      redirect_to album_path(@album)
+      redirect_to album_songs_path(@album)
     else
       puts "you are not allowed for this action"
     end

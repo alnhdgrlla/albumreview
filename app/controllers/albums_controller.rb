@@ -3,7 +3,7 @@ class AlbumsController < ApplicationController
 
   def index
     @albums = Album.where(artist_id: params[:artist_id])
-    @album = @albums.first
+    @album = Album.new
     # binding.pry
   end
 

@@ -1,6 +1,7 @@
 <h1>All Songs of This Album</h1>
 
-<% @album.songs.each do |s| %>
+
+<% @songs.each do |s| %>
   <ul>
     <li>
       <%= s.title %>
@@ -11,8 +12,8 @@
   </ul>
 <%end %>
 
-<% if @album.songs.empty? && @album.user_id == current_user.id %>
-  <%= link_to 'Post Songs', new_album_song_path(@album.id) %> <br>
+<% if @album.user_id == current_user.id %>
+  <%= render "new", artist: @artist %>
 <% end %>
 
 <%= link_to 'Home', root_path %>

@@ -4,6 +4,7 @@ class ReviewsController < ApplicationController
   def index
     @album = Album.find(params[:album_id])
     @reviews = Review.where(album_id: @album).paginate(page: params[:page], per_page: 3)
+    @review = Review.new
   end
 
   def new

@@ -7,6 +7,6 @@
 
 <%= will_paginate @artists %>
 
-<%= link_to 'Add artist', new_genre_artist_path(@genre_id) %>
-<br>
+<%= render "artists/new", artist: @artist %>
+
 <%= link_to 'Home', root_path %>

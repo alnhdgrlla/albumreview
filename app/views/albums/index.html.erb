@@ -1,13 +1,18 @@
 <h1>All Albums Of <%= @artist.name %> </h1>
 
+<% if @albums.empty? %>
+  <h3> (no albums yet) </h3>
+<% end %>
+
 <% @albums.each do |a| %>
   <h3>--<%= a.title %>--</h3>
-  <% if current_user.id == a.user_id %>
-    <h4><%= link_to "Edit this album", edit_artist_album_path(@artist, a) %></h4>
-  <% end %>
+    <% if current_user.id == a.user_id %>
+      <h4><%= link_to "Edit this album", edit_artist_album_path(@artist, a) %></h4>
+    <% end %>
   <h4> <%= link_to "<Reviews>", album_reviews_path(a) %> / total: <%= a.reviews.count %></h4>
   <h4> <%= link_to "<Songs>", album_songs_path(a) %> / total: <%= a.songs.count %></h4>
 <% end %>
 
-<%= link_to 'Post Album', new_artist_album_path(@artist) %> <br>
+<%= render "new", artist: @artist %>
+
 <%= link_to 'Home', root_path %>

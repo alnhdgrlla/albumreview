@@ -1,5 +1,9 @@
 <h1>All of the Reviews</h1>
 
+<% if @reviews.empty? %>
+  <h3> (no reviews ) </h3>
+<% end %>
+
 <% @reviews.each do |r| %>
   <ul>
     <li> <%= r.content %>
@@ -12,5 +16,6 @@
 
 <%= will_paginate @reviews %>
 
-<%= link_to 'Post Review', new_album_review_path(@album.id) %> <br>
+<%= render "new", artist: @artist %>
+
 <%= link_to 'Home', root_path %>

@@ -4,6 +4,7 @@ class GenresController < ApplicationController
   end
 
   def show
+    @artist = Artist.new
     @genre = Genre.find(params[:id])
     @genre_id = @genre.id
     @artists = Artist.where(genre_id: @genre_id).paginate(page: params[:page], per_page: 5)
